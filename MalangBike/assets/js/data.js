@@ -1,144 +1,104 @@
-const bikeDefaults = [
-  {
-    name: "City Bike",
-    type: "City Bike",
-    price: 15000,
-    description:
-      "Cocok untuk berkeliling pusat Kota Malang dan area Kayutangan.",
-    icon: "🚲",
-  },
-  {
-    name: "Mountain Bike",
-    type: "Mountain Bike",
-    price: 25000,
-    description: "Pilihan untuk perjalanan yang lebih jauh dan menantang.",
-    icon: "🚵",
-  },
-  {
-    name: "Electric Bike",
-    type: "Electric Bike",
-    price: 35000,
-    description: "Nyaman untuk perjalanan jauh tanpa cepat kelelahan.",
-    icon: "⚡🚲",
-  },
+const defaultBikes = [
+  { id: 1, name: 'Malang City 01', type: 'City Bike', price: 15000, description: 'Nyaman untuk keliling pusat Kota Malang.' },
+  { id: 2, name: 'Bromo MTB 01', type: 'Mountain Bike', price: 25000, description: 'Cocok untuk rute dengan medan menanjak.' },
+  { id: 3, name: 'Electric Ride 01', type: 'Electric Bike', price: 35000, description: 'Sepeda listrik untuk perjalanan lebih santai.' }
 ];
-const locationDefaults = [
-  {
-    name: "Kayutangan Heritage",
-    area: "Area pusat kota",
-    address: "Kayutangan, Malang",
-    icon: "📍",
-  },
-  {
-    name: "Alun-Alun Malang",
-    area: "Area alun-alun",
-    address: "Alun-Alun Malang",
-    icon: "🏛️",
-  },
-  {
-    name: "Ijen Boulevard",
-    area: "Area Jalan Ijen",
-    address: "Jl. Ijen, Malang",
-    icon: "🌳",
-  },
-  {
-    name: "Area Kampus",
-    area: "Malang Kota",
-    address: "Kawasan kampus Malang",
-    icon: "🎓",
-  },
+
+const defaultLocations = [
+  { id: 1, name: 'Alun-Alun Malang', area: 'Klojen', address: 'Jl. Merdeka Selatan, Kota Malang' },
+  { id: 2, name: 'Stasiun Kota Malang', area: 'Klojen', address: 'Jl. Trunojoyo No. 10, Kota Malang' },
+  { id: 3, name: 'Ijen Boulevard', area: 'Klojen', address: 'Jl. Ijen, Kota Malang' }
 ];
-function data(k, d) {
-  let x = localStorage.getItem(k);
-  if (!x) {
-    localStorage.setItem(k, JSON.stringify(d));
-    return d;
+
+function getData(key, defaults) {
+  const saved = localStorage.getItem(key);
+  if (!saved) {
+    localStorage.setItem(key, JSON.stringify(defaults));
+    return defaults;
   }
-  return JSON.parse(x);
+  try { return JSON.parse(saved); } catch { return defaults; }
 }
-function rupiah(n) {
-  return "Rp" + Number(n).toLocaleString("id-ID");
+
+function saveData(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
 }
-function esc(s) {
-  return String(s).replace(
-    /[&<>"']/g,
-    (m) =>
-      ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;",
-      })[m],
-  );
+
+function rupiah(value) {
+  return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(value);
 }
-const bl = document.getElementById("bikeList");
-if (bl) {
-  const bikes = data("bikes", bikeDefaults);
-  bl.innerHTML = bikes
-    .map(
-      (b, i) =>
-        `<div class="col-md-6 col-lg-4"><div class="bike-card"><div class="bike-image">${b.icon || "🚲"}</div><div class="bike-card-body"><span class="bike-tag">${esc(b.type)}</span><h3>${esc(b.name)}</h3><p>${esc(b.description)}</p><div class="price">${rupiah(b.price)} <small>/ jam</small></div><button class="btn btn-delete" onclick="hapusSepeda(${i})">Hapus</button></div></div></div>`,
-    )
-    .join("");
+
+function renderBikes() {
+  const target = document.getElementById('bikeList');
+  if (!target) return;
+  const bikes = getData('bikes', defaultBikes);
+  target.innerHTML = bikes.length ? bikes.map((bike, index) => `
+    <tr>
+      <td>${index + 1}</td>
+      <td class="fw-semibold">${escapeHtml(bike.name)}</td>
+      <td>${escapeHtml(bike.type)}</td>
+      <td>${rupiah(bike.price)}</td>
+      <td>${escapeHtml(bike.description || '-')}</td>
+      <td><button type="button" class="btn btn-danger btn-sm" onclick="deleteBike(${bike.id})">Hapus</button></td>
+    </tr>`).join('') : '<tr><td colspan="6" class="text-center text-secondary py-4">Belum ada data sepeda.</td></tr>';
 }
-function hapusSepeda(i) {
-  if (confirm("Hapus sepeda ini?")) {
-    let a = data("bikes", bikeDefaults);
-    a.splice(i, 1);
-    localStorage.setItem("bikes", JSON.stringify(a));
-    location.reload();
-  }
+
+function renderLocations() {
+  const target = document.getElementById('locationList');
+  if (!target) return;
+  const locations = getData('locations', defaultLocations);
+  target.innerHTML = locations.length ? locations.map((location, index) => `
+    <tr>
+      <td>${index + 1}</td>
+      <td class="fw-semibold">${escapeHtml(location.name)}</td>
+      <td>${escapeHtml(location.area)}</td>
+      <td>${escapeHtml(location.address)}</td>
+      <td><button type="button" class="btn btn-danger btn-sm" onclick="deleteLocation(${location.id})">Hapus</button></td>
+    </tr>`).join('') : '<tr><td colspan="5" class="text-center text-secondary py-4">Belum ada data lokasi.</td></tr>';
 }
-const ll = document.getElementById("locationList");
-if (ll) {
-  const a = data("locations", locationDefaults);
-  ll.innerHTML = a
-    .map(
-      (x, i) =>
-        `<div class="location-item"><span>${x.icon || "📍"}</span><div class="flex-grow-1"><h4>${esc(x.name)}</h4><p>${esc(x.area)}${x.address ? " · " + esc(x.address) : ""}</p></div><button class="btn btn-delete" onclick="hapusLokasi(${i})">Hapus</button></div>`,
-    )
-    .join("");
+
+function deleteBike(id) {
+  if (!confirm('Hapus data sepeda ini?')) return;
+  const bikes = getData('bikes', defaultBikes).filter(bike => bike.id !== id);
+  saveData('bikes', bikes);
+  renderBikes();
 }
-function hapusLokasi(i) {
-  if (confirm("Hapus lokasi ini?")) {
-    let a = data("locations", locationDefaults);
-    a.splice(i, 1);
-    localStorage.setItem("locations", JSON.stringify(a));
-    location.reload();
-  }
+
+function deleteLocation(id) {
+  if (!confirm('Hapus data lokasi ini?')) return;
+  const locations = getData('locations', defaultLocations).filter(location => location.id !== id);
+  saveData('locations', locations);
+  renderLocations();
 }
-const bf = document.getElementById("bikeForm");
-if (bf)
-  bf.onsubmit = (e) => {
-    e.preventDefault();
-    let a = data("bikes", bikeDefaults);
-    a.push({
-      name: name.value,
-      type: type.value,
-      price: price.value,
-      description: description.value,
-      icon:
-        type.value === "Mountain Bike"
-          ? "🚵"
-          : type.value === "Electric Bike"
-            ? "⚡🚲"
-            : "🚲",
-    });
-    localStorage.setItem("bikes", JSON.stringify(a));
-    location.href = "list.html";
-  };
-const lf = document.getElementById("locationForm");
-if (lf)
-  lf.onsubmit = (e) => {
-    e.preventDefault();
-    let a = data("locations", locationDefaults);
-    a.push({
-      name: name.value,
-      area: area.value,
-      address: address.value,
-      icon: "📍",
-    });
-    localStorage.setItem("locations", JSON.stringify(a));
-    location.href = "list.html";
-  };
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' }[char]));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const bikes = getData('bikes', defaultBikes);
+  const locations = getData('locations', defaultLocations);
+  const totalBikes = document.getElementById('totalBikes');
+  const totalLocations = document.getElementById('totalLocations');
+  if (totalBikes) totalBikes.textContent = bikes.length;
+  if (totalLocations) totalLocations.textContent = locations.length;
+  renderBikes();
+  renderLocations();
+
+  const bikeForm = document.getElementById('bikeForm');
+  if (bikeForm) bikeForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const data = getData('bikes', defaultBikes);
+    data.push({ id: Date.now(), name: document.getElementById('name').value.trim(), type: document.getElementById('type').value, price: Number(document.getElementById('price').value), description: document.getElementById('description').value.trim() });
+    saveData('bikes', data);
+    window.location.href = 'list.html';
+  });
+
+  const locationForm = document.getElementById('locationForm');
+  if (locationForm) locationForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const data = getData('locations', defaultLocations);
+    data.push({ id: Date.now(), name: document.getElementById('locationName').value.trim(), area: document.getElementById('area').value.trim(), address: document.getElementById('address').value.trim() });
+    saveData('locations', data);
+    window.location.href = 'list.html';
+  });
+});
