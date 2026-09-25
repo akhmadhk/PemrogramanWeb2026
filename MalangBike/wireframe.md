@@ -34,8 +34,8 @@ Halaman yang sudah ada pada website MalangBike meliputi Beranda, Daftar/Tambah S
 +--------------------------------------+
 ## Wireframe: Dashboard Petugas
 +------------------------------------------------------+
-| MalangBike   Beranda | Sepeda | Lokasi | Penyewaan   |
-|                                      (Petugas) Logout |
+| MalangBike   Beranda | Sepeda | Lokasi | Penyewaan   | (Petugas) Logout |
+|                                                      |
 |------------------------------------------------------|
 |                                                      |
 | [Total Sepeda] [Total Lokasi] [Sedang Disewa]        |
@@ -63,7 +63,7 @@ Halaman yang sudah ada pada website MalangBike meliputi Beranda, Daftar/Tambah S
 | ---------------------------------------------------  |
 | City Bike 01| City  | Rp15.000   | Tersedia | Edit   |
 | MTB 01      | MTB   | Rp25.000   | Disewa   | Hapus  |
-| E-Bike 01   | E-Bike| Rp40.000   | Tersedia | Edit   |
+| E-Bike 01   | E-Bike| Rp35.000   | Tersedia | Edit   |
 |                                                      |
 +------------------------------------------------------+
 ## Wireframe: Tambah Sepeda
@@ -85,19 +85,19 @@ Halaman yang sudah ada pada website MalangBike meliputi Beranda, Daftar/Tambah S
 +--------------------------------------+
 ## Wireframe: Daftar Lokasi
 +------------------------------------------------------+
-| MalangBike   Beranda | Sepeda | Lokasi | Penyewaan   |
-|------------------------------------------------------|
+| MalangBike        Beranda | Sepeda | Lokasi | Penyewaan |
++------------------------------------------------------+
 |                                                      |
-| Daftar Lokasi                       [ + Tambah ]      |
-|                                                      |
-| ---------------------------------------------------  |
-| Nama Lokasi | Area | Alamat | Aksi                    |
-| ---------------------------------------------------  |
-| Malang Kota | Kota | Jl. Ijen | Edit | Hapus         |
-| Alun-Alun   | Kota | Jl. Merdeka | Edit | Hapus      |
-| UB          | Lowokwaru | Jl. Veteran | Edit | Hapus  |
+| Daftar Lokasi                               [ + Tambah ] |
 |                                                      |
 +------------------------------------------------------+
+| Nama Lokasi           | Area   | Alamat                | Aksi        |
++------------------------------------------------------+
+| Alun-Alun Malang      | Klojen | Jl. Merdeka Selatan   | Edit | Hapus |
+| Stasiun Kota Malang   | Klojen | Jl. Trunojoyo No. 10  | Edit | Hapus |
+| Ijen Boulevard        | Klojen | Jl. Ijen              | Edit | Hapus |
++------------------------------------------------------+
+
 ## Wireframe: Tambah Lokasi
 +--------------------------------------+
 |          Tambah Lokasi               |
@@ -148,7 +148,7 @@ Halaman yang sudah ada pada website MalangBike meliputi Beranda, Daftar/Tambah S
 |                         [Kembalikan] |
 |                                      |
 +--------------------------------------+
-Wireframe: Riwayat Penyewaan
+## Wireframe: Riwayat Penyewaan
 +--------------------------------------+
 |       Riwayat Penyewaan              |
 |--------------------------------------|
