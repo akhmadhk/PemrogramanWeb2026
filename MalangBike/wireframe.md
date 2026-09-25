@@ -135,19 +135,18 @@ Halaman yang sudah ada pada website MalangBike meliputi Beranda, Daftar/Tambah S
 +--------------------------------------+
 ## Wireframe: Form Pengembalian
 +--------------------------------------+
-|       Pengembalian Sepeda            |
-|--------------------------------------|
+|          Pengembalian Sepeda          |
++--------------------------------------+
 |                                      |
 | Cari transaksi aktif:                |
 | [ pelanggan / nama sepeda ______ ]   |
 |                                      |
-| ------------------------------------ |
-| Pelanggan | Sepeda | Tgl Sewa | Aksi |
-| ------------------------------------ |
-| Budi      | MTB 01 | 20/09    |      |
-|                         [Kembalikan] |
-|                                      |
 +--------------------------------------+
+| Pelanggan | Sepeda  | Tgl Sewa | Aksi          |
++--------------------------------------+
+| Budi      | MTB 01  | 20/09    | [Kembalikan]  |
++--------------------------------------+
+
 ## Wireframe: Riwayat Penyewaan
 +--------------------------------------+
 |       Riwayat Penyewaan              |
