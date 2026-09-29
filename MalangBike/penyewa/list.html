@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MalangBike | Tambah Lokasi</title>
+  <title>MalangBike | Daftar Penyewa</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
@@ -15,22 +15,24 @@
       <nav class="collapse navbar-collapse" id="navMenu"><ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="../index.html">Beranda</a></li>
         <li class="nav-item"><a class="nav-link" href="../sepeda/list.html">Sepeda</a></li>
-        <li class="nav-item"><a class="nav-link active" href="list.html">Lokasi</a></li>
+        <li class="nav-item"><a class="nav-link active" href="list.html">Penyewa</a></li>
       </ul></nav>
     </div>
   </header>
 
   <main class="container my-4">
-    <section class="card shadow-sm mb-4 form-card">
+    <section class="card shadow-sm mb-4">
       <div class="card-body">
-        <h2 class="card-title mb-1">Tambah Lokasi</h2>
-        <p class="text-secondary mb-4">Isi data lokasi penyewaan yang akan ditambahkan.</p>
-        <form id="locationForm">
-          <div class="mb-3"><label for="locationName" class="form-label fw-semibold">Nama Lokasi</label><input type="text" class="form-control" id="locationName" placeholder="Contoh: Alun-Alun Malang" required></div>
-          <div class="mb-3"><label for="area" class="form-label fw-semibold">Area</label><input type="text" class="form-control" id="area" placeholder="Contoh: Klojen" required></div>
-          <div class="mb-4"><label for="address" class="form-label fw-semibold">Alamat</label><textarea class="form-control" id="address" rows="3" placeholder="Alamat lengkap lokasi" required></textarea></div>
-          <div class="d-flex gap-2"><button type="submit" class="btn btn-main">Simpan</button><a href="list.html" class="btn btn-outline-secondary">Batal</a></div>
-        </form>
+        <div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+          <div><h2 class="card-title mb-1">Daftar Penyewa</h2><p class="text-secondary mb-0">Kelola data orang yang menyewa sepeda.</p></div>
+          <a href="tambah.html" class="btn btn-main">＋ Tambah Penyewa</a>
+        </div>
+        <div class="table-responsive mt-4">
+          <table class="table table-striped table-hover align-middle mb-0">
+            <thead><tr class="text-white"><th>No</th><th>Nama Penyewa</th><th>No. HP</th><th>Alamat</th><th>Aksi</th></tr></thead>
+            <tbody id="renterList"></tbody>
+          </table>
+        </div>
       </div>
     </section>
   </main>
