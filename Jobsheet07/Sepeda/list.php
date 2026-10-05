@@ -15,11 +15,11 @@
         <button type="button" id="nav-toggle-btn" class="nav-toggle-label" aria-label="Menu">&#9776;</button>
         <nav>
             <ul>
-                <li><a href="../index.html">Beranda</a></li>
-                <li><a href="../sepeda/list.html" class="aktif">Daftar Sepeda</a></li>
-                <li><a href="../sepeda/tambah.html">Tambah Sepeda</a></li>
-                <li><a href="../pelanggan/list.html">Daftar Pelanggan</a></li>
-                <li><a href="../pelanggan/tambah.html">Tambah Pelanggan</a></li>
+                <li><a href="../index.php">Beranda</a></li>
+                <li><a href="../sepeda/list.php">Daftar Sepeda</a></li>
+                <li><a href="../sepeda/tambah.php">Tambah Sepeda</a></li>
+                <li><a href="../pelanggan/list.php">Daftar Pelanggan</a></li>
+                <li><a href="../pelanggan/tambah.php">Tambah Pelanggan</a></li>
             </ul>
         </nav>
     </header>
