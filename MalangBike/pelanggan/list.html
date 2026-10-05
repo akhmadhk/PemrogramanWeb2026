@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Malang Bike | Daftar Sepeda</title>
+    <title>Malang Bike | Daftar Pelanggan</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -16,9 +16,9 @@
         <nav>
             <ul>
                 <li><a href="../index.html">Beranda</a></li>
-                <li><a href="../sepeda/list.html" class="aktif">Daftar Sepeda</a></li>
+                <li><a href="../sepeda/list.html">Daftar Sepeda</a></li>
                 <li><a href="../sepeda/tambah.html">Tambah Sepeda</a></li>
-                <li><a href="../pelanggan/list.html">Daftar Pelanggan</a></li>
+                <li><a href="../pelanggan/list.html" class="aktif">Daftar Pelanggan</a></li>
                 <li><a href="../pelanggan/tambah.html">Tambah Pelanggan</a></li>
             </ul>
         </nav>
@@ -26,7 +26,7 @@
 
     <main>
         <section>
-            <h2>Daftar Sepeda</h2>
+            <h2>Daftar Pelanggan</h2>
             <div class="search-box">
                 <input type="text" id="search-input" placeholder="Cari data...">
             </div>
@@ -35,15 +35,14 @@
                 <table>
                     <thead>
                         <tr>
-                        <th>Kode Sepeda</th>
-                        <th>Merek</th>
-                        <th>Jenis</th>
-                        <th>Harga/Hari</th>
+                        <th>Nama</th>
+                        <th>Alamat</th>
+                        <th>No. Telepon</th>
                         <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Baris diisi dinamis oleh assets/js/sepeda.js -->
+                        <!-- Baris diisi dinamis oleh assets/js/pelanggan.js -->
                     </tbody>
                 </table>
             </div>
@@ -54,6 +53,6 @@
         <p>&copy; 2026 Malang Bike &mdash; Pemrograman Web</p>
     </footer>
     <script src="../assets/js/app.js"></script>
-    <script src="../assets/js/sepeda.js"></script>
+    <script src="../assets/js/pelanggan.js"></script>
 </body>
 </html>

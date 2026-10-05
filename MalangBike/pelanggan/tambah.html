@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Malang Bike | Tambah Sepeda</title>
+    <title>Malang Bike | Tambah Pelanggan</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -17,32 +17,40 @@
             <ul>
                 <li><a href="../index.html">Beranda</a></li>
                 <li><a href="../sepeda/list.html">Daftar Sepeda</a></li>
-                <li><a href="../sepeda/tambah.html" class="aktif">Tambah Sepeda</a></li>
+                <li><a href="../sepeda/tambah.html">Tambah Sepeda</a></li>
                 <li><a href="../pelanggan/list.html">Daftar Pelanggan</a></li>
-                <li><a href="../pelanggan/tambah.html">Tambah Pelanggan</a></li>
+                <li><a href="../pelanggan/tambah.html" class="aktif">Tambah Pelanggan</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section>
-            <h2>Tambah Sepeda</h2>
+            <h2>Tambah Pelanggan</h2>
             <form id="form-tambah">
                 <p>
-                    <label for="kode">Kode Sepeda</label><br>
-                    <input type="text" id="kode" name="kode" required>
+                    <label for="nama">Nama</label><br>
+                    <input type="text" id="nama" name="nama" required>
                 </p>
                 <p>
-                    <label for="merek">Merek</label><br>
-                    <input type="text" id="merek" name="merek" required>
+                    <label for="alamat">Alamat</label><br>
+                    <input type="text" id="alamat" name="alamat" required>
                 </p>
                 <p>
-                    <label for="jenis">Jenis</label><br>
-                    <input type="text" id="jenis" name="jenis" required>
+                    <label for="telepon">No. Telepon</label><br>
+                    <input type="text" id="telepon" name="telepon" required>
                 </p>
                 <p>
-                    <label for="harga">Harga Sewa per Hari (Rp)</label><br>
-                    <input type="text" id="harga" name="harga" required>
+                    <label for="email">Email</label><br>
+                    <input type="email" id="email" name="email" required>
+                </p>
+                <p>
+                    <label for="jaminan">Jaminan</label><br>
+                    <select id="jaminan" name="jaminan">
+                        <option value="KTP">KTP</option>
+                        <option value="SIM">SIM</option>
+                        <option value="KTM">KTM</option>
+                    </select>
                 </p>
                 <p>
                     <button type="submit">Simpan</button>
