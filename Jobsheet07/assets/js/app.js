@@ -12,7 +12,7 @@ function initNavToggle() {
 
 // ===== 2. Konfirmasi Hapus =====
 // Memakai event delegation di document karena baris tabel
-// dirender dinamis via fetch (mobil.js/pelanggan.js)
+// dirender dinamis via fetch (sepeda.js/pelanggan.js)
 function initHapusConfirm() {
     document.addEventListener("click", function (e) {
         const btn = e.target.closest(".btn-hapus");
