@@ -35,7 +35,7 @@ function tampil_flash() {
 <body>
     <header>
         <div class="brand-group">
-            <h1>MALANG BIKE</h1>
+            <h1>🚲MALANG BIKE</h1>
             <p class="subtitle">Sistem Informasi Penyewaan Sepeda</p>
         </div>
         <button type="button" id="nav-toggle-btn" class="nav-toggle-label" aria-label="Menu">&#9776;</button>
