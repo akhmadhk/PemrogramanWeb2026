@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $port = "5432";
-$db   = "malangbike";
+$db   = "01_malangbike";
 $user = "postgres";
 $pass = "12345678"; // Sesuaikan dengan password PostgreSQL milikmu
 
