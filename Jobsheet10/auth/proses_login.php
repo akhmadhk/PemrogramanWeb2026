@@ -21,13 +21,17 @@ try {
     $stmt->execute(['username' => $username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Hanya password_verify (password selalu tersimpan sebagai hash)
-    if ($user && password_verify($password, $user['password'])) {
+    // Cocokkan dengan hash (akun hasil registrasi) ATAU teks biasa (akun bawaan 'admin')
+    $cocok = $user && (
+        password_verify($password, $user['password']) ||
+        hash_equals($user['password'], $password)
+    );
+
+    if ($cocok) {
         session_regenerate_id(true); // cegah session fixation
         $_SESSION['user_id']  = $user['id'];
         $_SESSION['nama']     = $user['nama'] ?: $user['username'];
         $_SESSION['username'] = $user['username'];
-        $_SESSION['role']     = $user['role'];
 
         header('Location: ../index.php');
         exit;
