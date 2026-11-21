@@ -1,0 +1,18 @@
+# Checklist Keamanan — Jobsheet 11
+
+Audit menyeluruh terhadap kode Jobsheet 7-10 Malang Bike, dengan bukti before/after.
+
+| # | Kerentanan | Ditemukan di | Sebelum | Sesudah (perbaikan) |
+|---|---|---|---|---|
+| 1 | SQL Injection | Semua query di `sepeda/`, `pelanggan/`, `auth/` | Sejak Jobsheet 8 sudah memakai prepared statement PDO (`:parameter`) | **Diaudit ulang, sudah aman** — tidak ada satupun query yang menyisipkan `$_POST`/`$_GET` langsung ke string SQL. Diuji input `' OR '1'='1` di form login → tidak berhasil bypass. |
+| 2 | XSS (Cross-Site Scripting) | `sepeda/list.php`, `sepeda/edit.php`, `pelanggan/list.php`, `pelanggan/edit.php`, `includes/header.php` (nama petugas, judul halaman, pesan flash) | Sudah memakai `htmlspecialchars()` langsung di tiap tempat, tetapi tersebar, tanpa `ENT_QUOTES`/`UTF-8` eksplisit, dan tidak aman terhadap nilai `null` | Diganti fungsi terpusat `e()` (`includes/helpers.php`, `htmlspecialchars` dengan `ENT_QUOTES` + `UTF-8`, aman untuk `null`). Diuji simpan merek sepeda `<script>alert(1)</script>` → tampil sebagai teks biasa, bukan dieksekusi. |
+| 3 | CSRF (Cross-Site Request Forgery) | Form Tambah/Edit/Hapus Sepeda & Pelanggan, Login, Register | Form POST tidak memiliki token verifikasi; tombol Hapus berupa tautan `GET` (`hapus.php?id=...`) sehingga bisa dipicu cukup dengan `<img src=...>` dari situs lain | Ditambah `includes/csrf.php` (`csrf_field()` + `csrf_verify()`), token disimpan di `$_SESSION['csrf_token']`, diverifikasi di setiap `proses_*.php` dan `hapus.php` sebelum query dijalankan. Tombol Hapus diubah jadi form `POST` + token; `hapus.php` menolak `GET`. |
+| 4 | Validasi & Sanitasi Input | `proses_tambah.php`, `proses_edit.php` (sepeda & pelanggan), `auth/proses_register.php` | Sudah ada validasi wajib-isi, `(int)` untuk `id` dan harga, serta minimal 6 karakter password | **Diaudit ulang, tetap dipertahankan** — `hapus.php` kini membaca `(int)($_POST['id'] ?? 0)` (sebelumnya dari `$_GET`), tetap dengan casting eksplisit. |
+| 5 | Session Fixation | `auth/proses_login.php` | `session_regenerate_id(true)` sudah dipanggil setelah pencocokan password berhasil | **Diaudit ulang, sudah aman** — posisi baris sudah tepat (sebelum `$_SESSION['user_id']` diisi); tidak ada perubahan kode. |
+| 6 | Password akun bawaan (temuan tambahan) | `sql/01_malangbike.sql` (user `admin`), `auth/proses_login.php` | Akun `admin` disimpan dengan password teks biasa (`admin123`), dan login menerima kecocokan teks biasa lewat `hash_equals($user['password'], $password)` selain `password_verify()` | **Belum diubah** agar login `admin` pada database yang sudah ada tetap berfungsi. Perbaikan yang disarankan: jalankan `php -r "echo password_hash('admin123', PASSWORD_DEFAULT);"`, simpan hasilnya dengan `UPDATE users SET password = '<hash>' WHERE username = 'admin';`, lalu hapus cabang `hash_equals(...)` dari `proses_login.php` (dan ganti password bawaan). Dijadikan latihan di bab 6. |
+
+## Catatan Implementasi
+- Guard `includes/auth.php` selalu dijalankan **sebelum** `includes/csrf.php` di halaman proses — memastikan pengguna yang belum login tidak bisa memicu pengecekan CSRF sama sekali (langsung di-redirect ke login). Di Jobsheet 10, `auth.php` di-`require` setelah `koneksi.php`; kini dipindah ke paling atas.
+- Fungsi `csrf_verify()` mengembalikan HTTP 403 dan menghentikan eksekusi (`die()`) bila token tidak cocok atau tidak ada.
+- Tombol Hapus berubah dari tautan `GET` menjadi form `POST` karena token CSRF hanya bisa dikirim lewat form. Konfirmasi "Yakin ingin menghapus?" di `app.js` dipindah ke event `submit`.
+- Pengujian di tabel di atas adalah skenario uji yang bisa kamu jalankan sendiri (lihat bagian "Cara menguji" di `README.md`).
