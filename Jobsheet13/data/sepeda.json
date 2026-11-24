@@ -1,0 +1,6 @@
+[
+    { "kode": "MB-001", "merek": "Polygon", "jenis": "Sepeda Gunung", "harga": 50000 },
+    { "kode": "MB-002", "merek": "United", "jenis": "Sepeda Lipat", "harga": 40000 },
+    { "kode": "MB-003", "merek": "Pacific", "jenis": "Sepeda Kota", "harga": 30000 },
+    { "kode": "MB-004", "merek": "Selis", "jenis": "Sepeda Listrik", "harga": 80000 }
+]
